@@ -1,0 +1,39 @@
+<h1 class="myriad">Comment Moderation Queue</h1>
+
+<form action="<%= commentModerationUrl() %>" method="post" enctype="application/x-www-form-urlencoded">
+	<% if (comments.length == 0) { %>
+	<p>
+		All comments are moderated.  Hooray!
+	</p>
+	<% } else { %>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0" class="moderation-list">
+		<tr>
+			<th>Author</th>
+			<th>Email</th>
+			<th>IP</th>
+			<th>Comment</th>
+			<th style="width: 70px;">Approve</th>
+			<th style="width: 50px;">Spam</th>
+			<th style="width: 50px;">Abuse</th>
+			<th style="width: 50px;">Delete</th>
+		</tr>
+		<% comments.forEach(function (comment) { %>
+		<tr>
+			<td><%= comment.name %></td>
+			<td><%= comment.email %></td>
+			<td><%= comment.ip %></td>
+			<td><%= nl2br(add_links(comment.body)) %></td>
+			<td><input name="approve[<%= comment.id %>]" id="approve[<%= comment.id %>]" value="<%= comment.id %>" type="checkbox" /></td>
+			<td><input name="spam[<%= comment.id %>]" id="spam[<%= comment.id %>]" value="<%= comment.id %>" type="checkbox" /></td>
+			<td><input name="abuse[<%= comment.id %>]" id="abuse[<%= comment.id %>]" value="<%= comment.id %>" type="checkbox" /></td>
+			<td><input name="remove[<%= comment.id %>]" id="remove[<%= comment.id %>]" value="<%= comment.id %>" type="checkbox" /></td>
+		</tr>
+		<% }) %>
+	</table>
+	
+	<div class="top10">
+		<input type="hidden" name="doModerate" value="1" />
+		<button type="submit">Moderate Comments</button>
+	</div>
+	<% } %>
+</form>

@@ -1,0 +1,43 @@
+<% if (success == false) { %>
+<h1 class="myriad">Log In</h1>
+
+<% if (!error) { %>
+<p style="margin-top: 0; margin-bottom: 20px;">
+	You cannot currently register to be a member of this site.  If you have an account, you may log in using the form below.
+</p>
+<% } else { %>
+<div class="error-message" style="margin-top: 0; margin-bottom: 20px;">
+	<%= error_message %>  Please try again.
+</div>
+<% } %>
+<form method="post" action="<%= site_info('base') %>login" id="form_login">
+	<p>
+		<label for="username">Username:</label>
+		<input name="username" id="username" class="short" value="<%= username %>" />
+	</p>
+	<p>
+		<label for="password">Password:</label>
+		<input name="password" id="password" type="password" class="short" />
+	</p>
+	
+	<div class="login-button">
+		<div class="wrap">
+			<div class="left">
+				<input name="remember" id="remember" type="checkbox" value="1" /> <label for="remember">Remember me</label>
+			</div>
+			<div class="right">
+				<input name="doLogin" id="doLogin" value="1" type="hidden" />
+				<input name="ret_controller" id="ret_controller" value="<%= ret_controller %>" type="hidden" />
+				<input name="ret_action" id="ret_action" value="<%= ret_action %>" type="hidden" />
+				<button type="submit">Log in</button>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</form>
+<% } else { %>
+<script type="text/javascript">
+	window.location="<%= site_info('base') %>login/success";
+</script>
+<% } %>
+

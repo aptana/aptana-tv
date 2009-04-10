@@ -1,0 +1,13 @@
+<div class="breadcrumbs"><%= learning_breadcrumbs() %></div>
+
+<% if (typeof(learning_paths) != 'undefined') { %>
+	
+	<%= render({ partial: 'learn/learning_path_list.html' }, { learning_paths: learning_paths }) %>
+	
+<% } else { %>
+
+	<h1 class="myriad"><%= path.name %></h1>
+
+	<%= render({ partial: 'partials/video_list.html' }, { videos: videos, ref: 'learn', refId: path.id }) %>
+
+<% } %>

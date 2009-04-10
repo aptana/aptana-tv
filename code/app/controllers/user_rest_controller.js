@@ -1,0 +1,1 @@
+UserRestController = RestController.create('User');

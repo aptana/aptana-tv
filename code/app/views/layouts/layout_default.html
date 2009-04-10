@@ -1,0 +1,37 @@
+<%= render({ partial: 'partials/header.html' }) %>
+
+<!-- BEGIN MAIN CONTENT -->
+<div id="content-main-wrap">
+	<div id="content-main">
+		
+		<%= content %>
+		
+	</div>
+</div>
+
+<!-- BEGIN BOTTOM CONTENT -->
+<div id="content-bottom-wrap">
+	<div id="content-bottom">
+		<h2>Recently Added Videos</h2>
+		
+		<% var recent_videos = Video.find({ all: true, limit: 6, order: 'date_published DESC, name ASC', where: 'date_published <= NOW() AND is_active=1' }) %>
+		<% recent_videos.forEach(function(video) { %>
+		<div class="recent-video">
+			<div class="recent-video-image png-fix">
+				<a href="<%= videoUrl({ slug: video.slug }) %>" title="Watch this video"><img src="<%= site_info('base') %>images_videos_thumbs/thumb_wide_<%= video.image_file %>" alt="<%= video.name %>" /></a>
+			</div>
+			
+			<h3><a href="<%= videoUrl({ slug: video.slug }) %>"><%= video.name %></a></h3>
+			<p><%= truncate_words(video.description, 20) %></p>
+			
+			<div class="watch">
+				<a href="<%= videoUrl({ slug: video.slug }) %>">watch this video &raquo;</a>
+			</div>
+		</div>
+		<% }); %>
+		
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<%= render({ partial: 'partials/footer.html' }) %>

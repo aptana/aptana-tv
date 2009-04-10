@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+	<channel>
+		<title>Aptana TV<%= (!category) ? '' : ' - ' + category.name %></title>
+		<link><%= host + site_info('base') %><%= (!category) ? '' : 'topics/' + category.slug %></link>
+		<description>Aptana screencasts and tutorials for Aptana Studio and other Aptana products.</description>
+		<language>en-us</language>
+		<pubDate><%= ActiveSupport.dateFormat(pubDate, 'ddd, dd mmm yyyy HH:MM:ss', true) %> PST</pubDate>
+		<lastBuildDate><%= ActiveSupport.dateFormat(pubDate, 'ddd, dd mmm yyyy HH:MM:ss', true) %> PST</lastBuildDate>
+		<image>
+			<url><%= host + site_info('base') %>images_global/img_logo_feed.jpg</url>
+			<title>Aptana TV<%= (!category) ? '' : ' - ' + category.name %></title>
+			<link><%= host + site_info('base') %><%= (!category) ? '' : 'topics/' + category.slug %></link>
+			<width>144</width>
+			<height>41</height>
+		</image>
+		<%= content %>
+	</channel>
+</rss>

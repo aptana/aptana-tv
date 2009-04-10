@@ -1,0 +1,31 @@
+<% var count = 0; %>
+<% learning_paths.forEach(function(path) { %>
+	<div class="category-box">
+		<h2><a href="<%= learnUrl({slug: path.slug }) %>" title="View all <%= path.name %> videos"><%= path.name %></a></h2>
+		
+		<% var thumb = get_video_thumb('learning path', path.id); if (thumb !== false) { %>
+			<div style="float: left; width: 130px;">
+				<%= thumb %>		
+			</div>
+			<div style="float: left; width: 270px;">
+				<p>
+					<%= nl2br(path.description) %>
+				</p>	
+			</div>
+			<div class="clearfix"></div>
+		<% } else { %>
+			<p>
+				<%= nl2br(path.description) %>
+			</p>
+		<% } %>
+		
+		<div class="view-all">
+			<a href="<%= learnUrl({slug: path.slug }) %>" title="View all <%= path.name %> videos">View all videos &raquo;</a>
+		</div>
+	</div>
+	
+	<% count ++; %>
+	<% if (count == 2) { %><div class="clearfix"></div><% count = 0; } %>
+<% }) %>
+
+<div class="clearfix"></div>

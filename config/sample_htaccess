@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Set your rewrite base to the URL path to the aptana.tv location
+# 
+# For example, if your aptana.tv location is:
+#     http://example.com/aptana.tv
+# The RewriteBase would be:
+#     /aptana.tv/
+#
+# If you have it installed in its own doc root (i.e. http://example.com/),
+# then the default rewrite base is fine
+#
+RewriteBase /
+RewriteCond %{REQUEST_URI} !^/jaxer-.*\b
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*$ /jaxer-route [PT]

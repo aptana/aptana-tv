@@ -1,0 +1,16 @@
+<h1 class="myriad">Success!</h1>
+
+<p>
+	You have been successfully logged in.  If this is your first time, why not <a href="javascript: atl.openProfileWindow()">edit your profile</a>?  You may also create videos via the link in the footer, and manage any other content 
+	via the links provided throughout the site.
+</p>
+
+<% if (comment_moderation_count > 0) { %>
+<p>
+	<strong>There are <%= comment_moderation_count %> comments awaiting moderation.  <a href="<%= commentModerationUrl() %>">View them here</a>.</strong>
+</p>
+<% } %>
+
+<p>
+	You may also <a href="<%= site_info('base') %>logout">log out</a> if you wish.
+</p>

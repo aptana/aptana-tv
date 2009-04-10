@@ -1,0 +1,1 @@
+VideoRestController = RestController.create('Video');

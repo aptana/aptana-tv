@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Aptana TV</title>
+
+	<!-- STYLESHEETS -->
+	
+	<link rel="stylesheet" type="text/css" href="<%= site_info('css_url') %>styles.css" />
+	<link rel="stylesheet" type="text/css" href="<%= site_info('css_url') %>sifr.css" />
+	
+	<!--[if IE 6]>
+	<link rel="stylesheet" href="<%= site_info('css_url') %>ie_6.css" type="text/css" media="screen" />
+	<![endif]-->
+
+	<!-- JAVASCRIPT -->
+	
+
+	<script type="text/javascript" src="<%= site_info('js_url') %>mootools/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="<%= site_info('js_url') %>mootools/mootools-1.2-more.js"></script>
+	
+	<script type="text/javascript" src="<%= site_info('js_url') %>aptana.tv.js?base=<%= site_info('base') %>"></script>
+	
+	<script type="text/javascript" src="<%= site_info('js_url') %>sifr/sifr.js"></script>
+	<script type="text/javascript" src="<%= site_info('js_url') %>sifr/sifr-config.js"></script>
+
+	<script type="text/javascript" src="<%= site_info('js_url') %>mocha/mocha.js"></script>
+	<!--[if IE]>
+		<script type="text/javascript" src="<%= site_info('js_url') %>mocha/excanvas-compressed.js"></script>
+	<![endif]-->
+	
+	<link media="screen" type="text/css" href="<%= site_info('js_url') %>formcheck/theme/classic/formcheck.css" rel="stylesheet" /> 
+	<script type="text/javascript" src="<%= site_info('js_url') %>formcheck/lang/en.js"></script> 
+	<script type="text/javascript" src="<%= site_info('js_url') %>formcheck/formcheck.js"></script>
+	
+	<% if (is_page('create') || is_page('edit')) { %>
+	<script type="text/javascript" src="<%= site_info('js_url') %>functions.video.js"></script>
+	<% } %>
+	
+	<!--[if IE 6]>
+	<script type="text/javascript" src="<%= site_info('js_url') %>dd_belated-min.js"></script>
+	<script type="text/javascript">
+		DD_belatedPNG.fix('.png-fix');
+	</script>
+	<![endif]-->
+
+</head>
+
+<body>
+	
+<!-- BEGIN HEADER -->
+<div id="header-wrap">
+	<!-- logo -->
+	<h1 class="logo"><a href="<%= site_info('base') %>" title="Aptana.tv Home">Aptana.tv</a></h1>
+	
+	<!-- top nav -->
+	<div id="top-nav">
+		<div class="search">
+			<form method="get" action="<%= site_info('base') %>explore/search" name="form-search" enctype="application/x-www-form-urlencoded">
+				<input name="searchFor" id="searchFor" value="" />
+			</form>
+		</div>
+		<div class="suggest">
+			<a href="javascript: atl.openSuggestWindow();" title="Suggest a Video">Suggest a Video</a>
+		</div>
+		<div class="subscribe">
+			<a href="http://feeds.feedburner.com/aptanatv" title="Subscribe to our feed">Subscribe to our feed</a>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+</div>
+	
+<!-- BEGIN PRIMARY NAV -->
+<ul id="nav-main">
+	
+	<!-- home -->
+	<li id="nav-home" class="<%= (is_home()) ? 'selected' : '' %>">
+		<a href="<%= site_info('base') %>" title="Home">Home</a>
+	</li>
+	
+	<!-- explore -->
+	<li class="<%= (is_page('explore') || is_page('videos') || is_page('author') || is_home()) ? 'selected' : '' %><%= (is_home()) ? '-left' : '' %>">
+		<a href="<%= site_info('base') %>explore" title="Explore">Explore</a>
+	</li>
+	
+	<!-- learn -->
+	<li class="<%= (is_page('learn') || is_page('explore') || is_page('videos')|| is_page('author')) ? 'selected' : '' %><%= (is_page('explore') || is_page('author') || is_page('videos')) ? '-left' : '' %>">
+		<a href="<%= site_info('base') %>learn" title="Learn">Learn</a>
+	</li>
+	
+	<!-- topics -->
+	<li class="<%= (is_page('topics') || is_page('learn')) ? 'selected' : '' %><%= (is_page('learn')) ? '-left' : '' %>">
+		<a href="<%= site_info('base') %>topics" title="Topics">Topics</a>
+	</li>
+	
+	<!-- last item -->
+	<li id="nav-last" class="<%= (is_page('topics')) ? 'selected': '' %>">
+		&nbsp;
+	</li>
+</ul>

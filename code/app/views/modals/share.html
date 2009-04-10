@@ -1,0 +1,48 @@
+<h2>Share this Video</h2>
+
+<% if (sent) { %>
+<p><strong>Message sent!</strong>  You can share this video with another friend if you'd like, or close this window</p>
+<% } else { %>
+<p>Want to share this video with a friend?  We'll email them a link to it for you!  Simply fill out the form below.  Don't worry, we don't collect these email addresses.</p>
+<% } %>
+
+<form action="<%= shareUrl({ slug: video.slug }) %>" method="post" id="form_share" name="form_share" enctype="application/x-www-form-urlencoded">
+	<fieldset>
+		<p>
+			<label for="name">Your Name:</label>
+			<input name="name" id="name" class="validate['required'] short" />
+		</p>
+		
+		<p>
+			<label for="email_from">Your Email:</label>
+			<input name="email_from" id="email_from" class="validate['required'] short" />
+		</p>
+		
+		<p>
+			<label for="email_to">Your Friend's Email:</label>
+			<input name="email_to" id="email_to" class="validate['required'] short" />
+		</p>
+		
+		<p>
+			<label for="message">Your Message:</label>
+			<textarea name="message" id="message" rows="5" class="validate['required']" style="width: 330px;"><%= 'Hey,\nI wanted to share this cool video from Aptana TV called, "' + video.name + '".\n\nYou can check it out here:\n' + 'http://' + Jaxer.request.env.HTTP_HOST + videoUrl({ slug: video.slug }) %></textarea>
+			<span class="hint">Make sure you don't delete the URL, otherwise they won't get a link!</span>
+		</p>
+		
+	</fieldset>
+	
+	<fieldset>
+		<button type="submit">Send Message</button>
+		<input type="hidden" name="doShare" value="1" />
+	</fieldset>
+</form>
+
+<script type="text/javascript">
+window.addEvent('domready', function(){
+    new FormCheck('form_share', {
+		alerts: {
+			'required': 'This field is required'
+		}
+	});
+});
+</script>

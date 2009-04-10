@@ -1,0 +1,1 @@
+CommentRestController = RestController.create('Comment');

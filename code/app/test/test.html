@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <script src="prototype.js"></script>
+    <script>
+      var endpoint = 'http://web.aptana.local/~rjohnson/api/';
+      var model = 'user';
+      function list(format){
+        new Ajax.Request(endpoint + model + '.' + (format || 'json'),{
+          method: 'get',
+          onComplete: function(request){
+            console.log(model + ' list:',request);
+          }
+        });
+      };
+      function create(params){
+        var final_params = {};
+        for(var name in params)
+        {
+          final_params[model + '[' + name + ']'] = params[name];
+        }
+        new Ajax.Request(endpoint + model,{
+          method: 'post',
+          parameters: final_params,
+          onComplete: function(request){
+            console.log(model + ' created:',request);
+          }
+        });
+      };
+      function show(id,format){
+        new Ajax.Request(endpoint + model + '/' + id + '.' + (format || 'json'),{
+          method: 'get',
+          onComplete: function(request){
+            console.log(model + ' show:',request);
+          }
+        });
+      };
+      function update(id,params){
+        var final_params = {};
+        for(var name in params)
+        {
+          final_params[model + '[' + name + ']'] = params[name];
+        }
+        new Ajax.Request(endpoint + model + '/' + id,{
+          method: 'put',
+          parameters: final_params,
+          onComplete: function(request){
+            console.log(model + ' updated:',request);
+          }
+        });
+      };
+      function destroy(id){
+        new Ajax.Request(endpoint + model + '/' + id,{
+          method: 'delete',
+          onComplete: function(request){
+            console.log(model + ' destroy:',request);
+          }
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <p>check console</p>
+  </body>
+</html>

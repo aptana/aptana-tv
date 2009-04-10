@@ -1,0 +1,71 @@
+<% if(typeof(isSearch) != 'undefined' && isSearch == true) { %>
+
+	<h1 class="results">Search results for "<span><%= searchFor %></span>"</h1>
+	
+	<%= render({ partial: 'partials/video_list.html' }, { videos: videos, ref: 'search', refId: urlencode(searchFor) }) %>
+
+<% } else { %>
+	
+	<!-- intro -->
+	<h1 class="myriad" style="height: 30px;">Explore</h1>
+	
+    <p class="bottom10">
+        Not quite sure what you're looking for?  No worries, why not take a look through some of these videos, or search for something that interests you?
+    </p>
+	
+	<div class="separator"></div>
+	
+	<!-- browse by tags -->
+	<div class="category-box first">
+		<h2>Browse By Tags</h2>
+		
+		<div class="tag-cloud">
+			<% tags.forEach(function (tag) { %>
+				<span class="<%= get_tag_class(tag.count, tagMax) %>"><a href="<%= exploreTagsUrl({ slug: tag.slug }) %>"><%= tag.tag %></a></span>
+			<% }) %>
+		</div>
+		
+	</div>
+	
+	<!-- browse by product -->
+	<div class="category-box">
+		<h2>Browse By Product</h2>
+		
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+			<% var count = 0; %>
+			<tr>
+			<% products.forEach(function(product) { %>
+				<% if (count == 0 || count == 4 ) { %>
+					<td valign="top" width="50%">
+						<ul style="margin-top: 10px;">
+				<% } %>
+				
+				<li style="font-size: 12px; line-height: 16px; margin-bottom: 3px;"><a href="<%= exploreProductsUrl({ product_id: product.id }) %>"><%= product.name %></a></li>
+					
+				<% if (count == 3 || count == 7) { %>
+						</ul>
+					</td>
+				<% } %>
+			
+				<% count++; %>
+			<% }) %>
+			
+			<% if (count < 7) { %>
+					</ul>
+				</td> 
+			<% } %>
+			</tr>
+		</table>
+		
+	</div>
+	
+	<div class="clearfix"></div>
+
+	<div class="separator"></div>
+	
+	<!-- most viewed videos -->
+	<h2>Most Viewed Videos</h2>
+
+	<%= render({ partial: 'partials/video_list.html' }, { videos: mostViewed }) %>
+
+<% } %>

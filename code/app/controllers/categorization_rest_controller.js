@@ -1,0 +1,1 @@
+CategorizationRestController = RestController.create('Categorization');

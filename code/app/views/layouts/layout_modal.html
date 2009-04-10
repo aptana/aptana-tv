@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Aptana TV</title>
+
+	<!-- STYLESHEETS -->
+	
+	<link rel="stylesheet" type="text/css" href="<%= site_info('css_url') %>styles_modal.css" />
+
+	<!-- JAVASCRIPT -->
+
+	<script type="text/javascript" src="<%= site_info('js_url') %>mootools/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="<%= site_info('js_url') %>mootools/mootools-1.2-more.js"></script>
+	
+	<script type="text/javascript" src="<%= site_info('js_url') %>aptana.tv.js?base=<%= site_info('base') %>"></script>
+	
+	<link media="screen" type="text/css" href="<%= site_info('js_url') %>formcheck/theme/classic/formcheck.css" rel="stylesheet" /> 
+	<script type="text/javascript" src="<%= site_info('js_url') %>formcheck/lang/en.js"></script> 
+	<script type="text/javascript" src="<%= site_info('js_url') %>formcheck/formcheck.js"></script>
+
+	<!--[if IE 6]>
+	<script type="text/javascript" src="<%= site_info('js_url') %>dd_belated-min.js"></script>
+	<script type="text/javascript">
+		DD_belatedPNG.fix('.png-fix');
+	</script>
+	<![endif]-->
+
+</head>
+
+<body>
+	
+<div id="main"><%= content %></div>	
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+/**
+ * IE6 CSS HACKS
+ * because some people just won't upgrade ;)
+ */
+
+* html div#content-main { height: 300px; }
+* html div#content-bottom { height: 200px; }
+* html div#top-nav div.search { margin: 5px 10px 0 5px; padding-top: 3px; }
+* html div#top-nav div.search input { margin-bottom: 2px; }
+* html div#top-nav div.suggest { margin-right: -10px; }
+* html div#top-nav div.subscribe { float: left; margin-right: 10px; }	
+* html div#top-nav div.subscribe a {
+	background: url(../images_global/img_subscribe.gif) no-repeat left top;
+	display: block;
+	height: 35px;
+	margin-left: 10px;
+	text-indent: -9000px;
+	width: 137px
+}
+
+* html div#content-bottom h2 { margin-bottom: 15px; }

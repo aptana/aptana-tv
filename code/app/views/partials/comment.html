@@ -1,0 +1,52 @@
+<% comments.forEach(function(comment) { %>
+
+	<div class="comment-block">
+		<div class="user-info">
+			<div class="avatar">
+				<% if (comment.user_id != 0)  { %>
+					<%= user_avatar(User.findById(comment.user_id)) %>
+				<% } else { %>
+					<% if (comment.website != '') { %>
+						<a href="<%= comment.website %>" target="_blank" title="Visit <%= comment.name %>'s Site"><img src="http://gravatar.com/avatar/<%= Jaxer.Util.Crypto.MD5(comment.email) %>?s=80&r=pg" alt="<%= comment.name %>" /></a>
+					<% } else { %>
+						<img src="http://gravatar.com/avatar/<%= Jaxer.Util.Crypto.MD5(comment.email) %>?s=80&r=pg" alt="<%= comment.name %>" />
+					<% } %>
+				<% } %>
+			</div>
+			<div class="user">
+				<% if (comment.website != '') { %>
+					<h3><a href="<%= comment.website %>" target="_blank" title="Visit <%= comment.name %>'s Site"><%= comment.name %></a></h3>
+				<% } else { %>
+					<h3><%= comment.name %></h3>
+				<% } %>
+				
+				<small><%= pretty_date(comment.created) %></small>
+				<% if (comment.user_id != 0) { %>
+				<br /><br /><small><img src="<%= site_info('base') %>images_global/img_icon_product.png" /> <strong>STAFF</strong</small>
+				<% } %>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	
+		<div class="comment-body">
+			<% if (!comment.approved && !is_logged_in()) { %>
+				<div><em><strong>Your comment is awaiting moderation</strong></em></div>	
+			<% } %>
+			
+			<%= nl2br(add_links(comment.body)) %>
+		</div>
+		<div class="clearfix"></div>
+		
+		<% if(is_logged_in()) { %>
+			<div class="moderate">
+				<% if (!comment.approved) { %>
+					<img src="<%= site_info('base') %>images_global/img_icon_ok.png" /> <a href="<%= commentModerateUrl({ id: comment.id, action: 'approve' }) %>">Approve</a> | 
+					<img src="<%= site_info('base') %>images_global/img_icon_spam.png" /> <a href="<%= commentModerateUrl({ id: comment.id, action: 'spam' }) %>">Spam</a> | 
+					<img src="<%= site_info('base') %>images_global/img_icon_blacklist.png" /> <a href="<%= commentModerateUrl({ id: comment.id, action: 'blacklist' }) %>">Blacklist</a> | 
+				<% } %>
+				
+				<img src="<%= site_info('base') %>images_global/img_icon_delete.png" /> <a href="<%= commentModerateUrl({ id: comment.id, action: 'delete' }) %>">Delete</a>
+			</div>
+		<% } %>
+	</div>
+<% }) %>

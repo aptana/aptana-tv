@@ -1,0 +1,1 @@
+CategoryRestController = RestController.create('Category');

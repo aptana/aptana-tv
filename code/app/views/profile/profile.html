@@ -1,0 +1,65 @@
+<h2>My Profile</h2>
+
+<% if(updated) { %>
+	<div id="updated" style="padding: 5px;"><p><strong>Your profile was successfully updated</strong></p></div>
+	<script type="text/javascript">
+		$('updated').highlight();
+	</script>
+<% } else { %>
+	<p>You may update your profile via the form below.</p>
+<% } %>
+
+<form action="<%= site_info('base') %>profile" method="post" enctype="multipart/form-data">
+	<fieldset>
+		<legend>My Info</legend>
+		
+		<p>
+			<label for="first_name">First name:</label>
+			<input name="first_name" id="first_name" value="<%= user.first_name %>" />
+		</p>
+		
+		<p>
+			<label for="last_name">Last name:</label>
+			<input name="last_name" id="last_name" value="<%= user.last_name %>" />
+		</p>
+		
+		<p>
+			<label for="email">Email:</label>
+			<input name="email" id="email" value="<%= user.email %>" />
+		</p>
+	</fieldset>
+	
+	<fieldset>
+		<legend>My Intro &amp; Website</legend>
+		
+		<p>
+			<label for="website">Website:</label>
+			<input name="website" id="website" value="<%= user.website %>" />
+		</p>
+		
+		<p>
+			<label for="introduction">Intro:</label>
+			<textarea name="introduction" id="introduction" rows="4"><%= user.introduction %></textarea>
+		</p>
+		
+	</fieldset>
+	
+	<fieldset>
+		<legend>My Pic</legend>
+		<p style="padding-left: 55px;">
+			<strong>Current Pic: </strong>	<img src="<%= site_info('base') %>images_avatars/<%= (user.avatar_file == '') ? 'default.jpg' : 'thumb_small_' + user.avatar_file %>" />
+		</p>
+		
+		<p>
+			<label for="avatar_file">Image File:</label>
+			<input name="avatar_file" id="avatar_file" type="file" />
+			<span class="hint">JPEG or PNG files only, at least 80x80 pixels</span>
+		</p>
+	</fieldset>
+	
+	<fieldset>
+		<input type="hidden" name="doUpdate" id="doUpdate" value="1" />
+		<button type="submit">Save Changes</button>&nbsp;
+		<button type="button" onclick="window.parent.MochaUI.closeWindow(window.parent.MochaUI.currentModal);">Cancel</button>
+	</fieldset>
+</form>

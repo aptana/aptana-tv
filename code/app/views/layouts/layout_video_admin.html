@@ -1,0 +1,32 @@
+<%= render({ partial: 'partials/header.html' }) %>
+
+<!-- BEGIN MAIN CONTENT -->
+<div id="content-main-wrap">
+	<div id="content-main">
+		
+		<%= content %>
+		
+	</div>
+</div>
+
+<!-- BEGIN BOTTOM CONTENT -->
+<div id="content-bottom-wrap">
+	<div id="content-bottom">
+		<h2 class="help">Help Creating Videos</h2>
+		
+		<p>
+			<strong>Video Information</strong><br />
+			Simply fill out these fields completely.  The video source file is the name of the movie (including the .flv extension) on S3.  The existence of the video will also be validated after you enter it.
+		</p>
+		
+		<p>
+			<strong>Video Image</strong><br />
+			This is the image that will be used for thumbnails throughout the site, as well as shown in the player when the video is not playing.  The dimensions for the image should be no less than 600x375, and ideally 960x600.  
+			You may also only upload PNG or JPEG files.
+		</p>
+		
+		<div class="clearfix"></div>
+	</div>
+</div>
+
+<%= render({ partial: 'partials/footer.html' }) %>

@@ -1,0 +1,1 @@
+CommentWhitelistRestController = RestController.create('CommentWhitelist');

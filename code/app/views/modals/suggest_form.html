@@ -1,0 +1,40 @@
+<h2>Suggest a Video</h2>
+
+<p>Got something you want to see?  Let us know!  Simply fill out the form below completely to have your suggestion considered.</p>
+
+<form action="<%= suggestUrl() %>" method="post" id="form_suggeset" name="form_suggest" enctype="application/x-www-form-urlencoded">
+	
+	<fieldset>
+		<p>
+			<label for="name">Your Name:</label>
+			<input name="name" id="name" class="validate['required'] short" />
+		</p>
+		
+		<p>
+			<label for="email">Your Email:</label>
+			<input name="email" id="email" class="validate['required'] short" />
+			<span class="hint">Seriously, we'll never share this</span>
+		</p>
+		
+		<p>
+			<label for="suggestion">Your Suggestion:</label>
+			<textarea name="suggestion" id="suggestion" rows="5" class="validate['required']" style="width: 230px;"></textarea>
+		</p>
+		
+	</fieldset>
+	
+	<fieldset>
+		<button type="submit">Send Suggestion</button>
+		<input type="hidden" name="doSuggest" value="1" />
+	</fieldset>
+</form>
+
+<script type="text/javascript">
+window.addEvent('domready', function(){
+    new FormCheck('form_suggeset', {
+		alerts: {
+			'required': 'This field is required'
+		}
+	});
+});
+</script>

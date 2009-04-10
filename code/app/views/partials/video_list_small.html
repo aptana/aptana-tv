@@ -1,0 +1,35 @@
+<% if(!path) { %>
+	<% videos.forEach(function(video) { %>
+	<div class="video-list-left">
+		<div class="video-thumb-small png-fix">
+			<a href="<%= videoUrl({ slug: video.slug }) %>" title="Watch this video"><img src="<%= site_info('base') %>images_videos_thumbs/thumb_small_<%= video.image_file %>" alt="" /></a>
+		</div>
+	</div>
+	<div class="video-list-right">
+		<h3><a href="<%= videoUrl({ slug: video.slug }) %>"><%= video.name %></a>
+	</div>
+	<div class="clearfix"></div>
+	<% }) %>
+<% } else { %>
+<div class="top10 path-list">
+	<%	var count = 1 ;	%>
+	<% videos.forEach(function(video) { %>
+	<% 
+		var video_url = videoUrl({ slug: video.slug });
+		video_url += '?ref=learn&refId=' + path.id;
+	%>
+	<div class="<%= (video.id == currentVideo.id) ? 'current-video' : '' %>">
+		<div class="video-list-left">
+			<div class="video-thumb-small">
+				<a href="<%= video_url %>" title="Watch this video"><img src="<%= site_info('base') %>images_videos_thumbs/thumb_small_<%= video.image_file %>" alt="" /></a>
+			</div>
+		</div>
+		<div class="video-list-right">
+			<h3><%= count %>. <a href="<%= video_url %>"><%= video.name %></a>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<% count++; %>
+	<% }) %>	
+</div>
+<% } %>

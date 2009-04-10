@@ -1,0 +1,27 @@
+<!-- title -->
+<div class="video-title">
+	<div class="avatar">
+		<%= user_avatar(user) %>
+	</div>
+	<div class="title">
+		<h1 class="myriad" style="width: 750px;"><%= user.first_name %> <%= user.last_name %></h1>
+		<div class="meta">
+			<%= user.first_name %>'s Website: <a href="<%= user.website %>" target="_blank"><%= user.website %></a>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<p><%= nl2br(user.introduction) %></p>
+
+<div class="separator"></div>
+
+<h2 class="myriad">Videos by <%= user.first_name %></h2>
+
+<% if(!videos || videos.length == 0) { %>
+	<p>
+		<%= user.first_name %> hasn't created any videos yet.
+	</p>
+<% } else { %>
+	<%= render({ partial: 'partials/video_list.html' }, { videos: videos }) %>
+<% } %>

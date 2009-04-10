@@ -1,0 +1,1 @@
+ProductRestController = RestController.create('Product');

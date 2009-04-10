@@ -1,0 +1,153 @@
+<div class="breadcrumbs">
+	<% if(ref == 'search') { %>
+		<a href="<%= site_info('base') %>explore/search?searchFor=<%= refId %>">&laquo; Return to search for "<%= urldecode(refId) %>"</a>
+	<% } else if (ref == 'learn') { %>
+		<%= learning_breadcrumbs(' &raquo; ', video.name, learningPath.slug) %>
+	<% } else if (ref == 'topic') { %>
+		<%= topic_breadcrumbs(' &raquo; ', video.name, Category.findById(refId).slug) %>
+	<% } %>
+	
+	<% if (is_logged_in()) { %>
+		&nbsp;<strong>[ <a href="<%= videoEditUrl({ id: video.id }) %>">EDIT VIDEO</a> ]</strong>
+	<% } %>
+</div>
+
+<!-- title -->
+<div class="video-title">
+	<div class="avatar">
+		<%= user_avatar(user) %>
+	</div>
+	<div class="title">
+		<h1 class="myriad" style="width: 750px;"><%= video.name %></h1>
+		<div class="meta">
+			Posted By: <a href="<%= authorUrl({ user_id: user.id }) %>"><%= user.first_name %></a><br />
+			<%= pretty_date(video.get('date_published')) %>
+		</div>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div>
+	<div class="video-left">
+
+		<!-- player -->
+		<div style="background: #000; padding: 4px; width: 600px; height: 375px;">
+			<div id="player_cage">
+				<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="600" height="375" id="player_600" align="middle">
+					<param name="allowScriptAccess" value="always" />
+					<param name="allowFullScreen" value="true" />
+					<param name="FlashVars" value="context=local&image=<%= site_info('base') %>images_videos_original/<%= video.image_file %>&video=<%= video.source_url %>" />
+					<param name="movie" value="<%= site_info('base') %>images_flash/player_600.swf" />
+					<param name="quality" value="high" />
+					<param name="bgcolor" value="#000000" />	
+					<param name="wmode" value="transparent" />
+					<embed src="<%= site_info('base') %>images_flash/player_600.swf" FlashVars="context=local&image=<%= site_info('base') %>images_videos_original/<%= video.image_file %>&video=<%= video.source_url %>" quality="high" bgcolor="#000000" width="600" height="375" name="player_600" align="middle" allowScriptAccess="sameDomain" allowFullScreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" />
+				</object>
+			</div>
+		</div>
+		
+		<!-- description -->
+		<p>
+			<%= nl2br(video.description) %>
+		</p>
+		
+	</div>
+	
+	<div class="video-right">
+		
+		<% if (learningPath !== false) { %>
+			<!-- learning path videos -->
+			<h3 class="myriad" style="height: 20px;">Other Videos in this Series</h3>
+			<span class="subheading" style="color: #486587; font-size: 10px; margin-top: 0px;"><%= learningPath.name %></span>
+			
+			<%= render({ partial: 'partials/video_list_small.html' }, { videos: learningPath.getVideoList(), path: learningPath, currentVideo: video }) %>
+			
+		<% } else if (relatedVideos.length > 0) { %>
+			<!-- related videos -->
+			<h3 class="myriad">Related Videos</h3>
+			
+			<%= render({ partial: 'partials/video_list_small.html' }, { videos: relatedVideos, path: false }) %>
+			
+		<% } %>
+		
+		<div class="separator"></div>
+		
+		<!-- video meta -->
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_tags.png" class="png-fix" style="vertical-align: middle; "/> <strong>Tags:</strong> <%= tag_list(video.getTagList()) %>
+		</p>
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_topics.png" class="png-fix" style="vertical-align: middle; "/> <strong>Topics:</strong> <%= topic_list(video.getCategoryList()) %>
+		</p>
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_calendar.png" class="png-fix" style="vertical-align: middle; "/> <strong>Posted:</strong> <%= pretty_date(video.get('date_published'), true) %>
+		</p>
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_product.png" class="png-fix" style="vertical-align: middle; "/> <strong>Product:</strong> <a href="<%= Product.findById(video.get('product_id')).url %>"><%= Product.findById(video.get('product_id')).name %> <%= Version.findById(video.get('version_id')).name %></a>
+		</p>
+		<% if (video.related_url != '') { %>
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_relatedlink.png" class="png-fix" style="vertical-align: middle; "/> <strong>Related:</strong> <a href="<%= video.related_url %>" target="_blank"><%= video.related_url %></a>
+		</p>
+		<% } %>
+		
+		<% if (video.video_attachment_id != 0) { %>
+		<% var attachment = VideoAttachment.findById(video.video_attachment_id) %>
+		<!-- video attachment -->
+		<div class="separator"></div>
+		
+		<h3 class="myriad" style="height: 20px;">Attachment</h3>
+		<span class="subheading" style="color: #486587; font-size: 10px; margin-top: 0px;"><%= attachment.name %></span>
+		
+		<% if (attachment.descript != '') { %>
+		<p>
+			<%= nl2br(attachment.description) %>
+		</p>
+		<% } %>
+		
+		<p class="meta">
+			<img src="<%= site_info('base') %>images_global/img_icon_attachment.png" style="vertical-align: middle; "/>  <a href="<%= site_info('base') %>video_attachments/<%= attachment.file_name %>"><%= attachment.file_name %></a> (<%= Math.floor((attachment.size / 1024) * 100) / 100 %> kb)
+		</p>
+		
+		<% } %>
+		
+		<!-- share -->
+		<div class="separator"></div>
+		
+		<h3 class="myriad" style="height: 20px;">Share This Video</h3>
+		<div class="social-network-wrap">
+			<div class="social-network">
+				<a href="http://digg.com/submit?phase=2&amp;url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>&amp;bodytext=<%= truncate_words(video.description) %>"><img src="<%= site_info('base') %>images_global/img_icon_digg.png" class="png-fix" /></a><br />
+				<a href="http://digg.com/submit?phase=2&amp;url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>&amp;bodytext=<%= truncate_words(video.description) %>">Digg It</a>
+			</div>
+			<div class="social-network">
+				<a href="http://del.icio.us/post?url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>"><img src="<%= site_info('base') %>images_global/img_icon_delicious.png" class="png-fix" /></a><br />
+				<a href="http://del.icio.us/post?url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>">Del.icio.us</a>
+			</div>
+			<div class="social-network last">
+				<a href="http://www.stumbleupon.com/submit?url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>"><img src="<%= site_info('base') %>images_global/img_icon_stumbleupon.png" class="png-fix" /></a><br />
+				<a href="http://www.stumbleupon.com/submit?url=<%= site_info('host') + videoUrl({ slug: video.slug }) %>&amp;title=<%= video.name %>">Stumble Upon</a>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		
+		
+		<% if(typeof(learningPaths) != 'undefined' && learningPaths.length > 0) { %>
+			<!-- learning paths this video belongs to -->
+			<div class="separator"></div>
+			
+			<h3 class="myriad" style="height: 20px;">Learn More</h3>
+			<span class="subheading" style="color: #486587; font-size: 10px; margin-top: 0px;">This video is a part of the following series</span>
+			
+			<p style="font-size: 11px;">
+				<% learningPaths.forEach(function(path) { %>
+					&bull; <strong><a href="<%= learnUrl({ slug: path.slug }) %>" style="color: #3d3d3d"><%= path.name %></a></strong><br />
+				<% }) %>
+			</p>
+		
+		<% } %>
+		
+	</div>
+	
+	<div class="clearfix"></div>
+</div>

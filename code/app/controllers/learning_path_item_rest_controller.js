@@ -1,0 +1,1 @@
+LearningPathItemRestController = RestController.create('LearningPathItem');

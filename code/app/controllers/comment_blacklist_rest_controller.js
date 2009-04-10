@@ -1,0 +1,1 @@
+CommentBlacklistRestController = RestController.create('CommentBlacklist');

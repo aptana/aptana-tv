@@ -1,0 +1,48 @@
+<!-- BEGIN FOOTER -->
+<div id="footer">
+	<!-- primary links -->
+	<div class="primary-links">
+		<a href="<%= site_info('base') %>" title="Aptana.tv Home">home</a> / 
+		<a href="<%= site_info('base') %>explore" title="Explore">explore</a> / 
+		<a href="<%= site_info('base') %>learn" title="Learning Paths">learning paths</a> / 
+		<a href="<%= site_info('base') %>topics" title="Topics">topics</a> 
+		<% if (is_logged_in()) { %>
+			/ <a href="<%= site_info('base') %>video/create">create new video</a>
+			/ <a href="#" title="My Profile" id="my_profile_link">my profile</a>
+			/ <a href="<%= site_info('base') %>logout">log out</a>
+		<% } %>
+	</div>
+	
+	<!-- secodary links -->
+	<div class="secondary-links">
+		<a href="http://www.aptana.com/products" target="_blank" title="Aptana Products">products</a> / 
+		<a href="http://www.aptana.com/blog" target="_blank" title="Aptana Blog">blog</a> / 
+		<a href="http://support.aptana.com" target="_blank" title="Aptana Support Center">support</a> / 
+		<a href="http://forums.aptana.com" target="_blank" title="Aptana Forums">community</a> / 
+		<a href="http://www.aptana.com/careers" target="_blank" title="Careers at Aptana">careers</a> / 
+		<a href="http://www.aptana.com/about" target="_blank" title="About Aptana">company</a> / 
+		<a href="http://www.aptana.com/about" target="_blank" title="Contact Us">contact us</a>
+	</div>
+	
+	<!-- copyright -->
+	<div class="copyright">
+		Copyright &copy; 2005-2009 <a href="http://www.aptana.com" target="_blank" title="Aptana, Inc.">Aptana</a>, Inc.<br />
+		<a href="http://www.aptana.com/privacy_policy" target="_blank" title="Aptana Privacy Policy">Privacy Policy</a>
+	</div>
+</div>
+
+<!-- google tracking code -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." :
+"http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost +
+"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-2210703-2");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>

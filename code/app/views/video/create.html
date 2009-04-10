@@ -1,0 +1,128 @@
+<% if(!create) { %>
+<h1 class="myriad">Create a Video</h1>
+<p>To create a new video, simply complete this form.</p>
+<form method="post" action="<%= site_info('base') %>video/create" name="form_create_video" id="form_create_video" enctype="multipart/form-data" onsubmit="return validate_create_form()">
+	
+	<!-- basic info -->
+	<fieldset>
+		<legend>Video Information</legend>
+		
+		<p>
+			<label for="name">Name:</label> <input name="name" id="name" />
+		</p>
+		<p>
+			<label for="description">Description:</label> <textarea name="description" id="description" rows="5"></textarea>
+		</p>
+		<p style="line-height: 25px;">
+			<label for="source_url">Video Source File:</label> <input name="source_url" id="source_url" class="noclear" /> <span id="source_url_info" class="info"></span>
+			<div class="clearfix"></div>
+			<span class="hint">the name of the flv file on S3, i.e. "SampleVideo.flv"</span>
+		</p>
+		<p>
+			<label for="related_url">Related URL:</label> <input name="related_url" id="related_url" />
+			<span class="hint">optional URL for related content</span>
+		</p>
+		<p>
+			<label for="tags">Tags:</label> <input name="tags" id="tags" />
+			<span class="hint">comma-separated list</span>
+		</p>
+		
+		<p>
+			<label for="date_published">Publish Date:</label>
+			<input name="date_published" id="date_published" value="<%= ActiveSupport.dateFormat('yyyy-mm-dd HH:MM') %>" />
+			<span class="hint">Format as: YYYY-MM-DD HH:mm (24-hour time)</span>
+		</p>
+	</fieldset>
+	
+	<!-- product -->
+	<fieldset>
+		<legend>Product &amp; Version</legend>
+		<p>
+			<label for="product_id">Relevant Product: </label>
+			<select name="product_id" id="product_id">
+				<option value="---">Please choose...</option>
+				<% for each(var product in products) { %>
+				<% if(product.name == 'curried') { continue; } %>
+				
+				<option value="<%= product.id %>"><%= product.name %></option>
+				<% } %>
+			</select>
+		</p>
+		
+		<p>
+			<label for="version_id">Version: </label>
+			<div id="version_id_cage" class="info">Choose a product...</div>
+		</p>
+	</fieldset>
+	
+	<!-- categories -->
+	<fieldset>
+		<legend>Categories</legend>
+		
+		<% var count = 0; %>
+		<table width="400" cellspacing="0" cellpadding="0" border="0">
+			<% categories.forEach(function(category) { %>
+			<% if (count == 0) { %>
+			<tr>
+			<% } %>
+				<td width="50%">
+					<input type="checkbox" name="category[<%= category.id %>]" id="category_<%= category.id %>" value="<%= category.id %>" class="video-category" />
+					&nbsp;<label for="category_<%= category.id %>"><%= category.name %></label>
+				</td>
+			<% if (count == 1) { %>
+			</tr>
+			<% } %>
+			
+			<% count ++; %>
+			<% if (count > 1) { count = 0; } %>
+			<% }) %>
+			
+			<% if (count == 1) { %><td width="50%">&nbsp;</td></tr><% } %>
+		</table>
+		
+	</fieldset>
+	
+	<!-- video image -->
+	<fieldset>
+		<legend>Video Image</legend>
+		
+		<p>
+			<label for="image_file">Image File: </label>
+			<input type="file" name="image_file" id="image_file" />
+			<span class="hint">the image to use for thumbnails throughout the site</span>
+		</p>
+	</fieldset>
+	
+	<!-- video attachment -->
+	<fieldset>
+		<legend>Attachment</legend>
+		
+		<p>
+			<label for="attachment_name">Name:</label>
+			<input name="attachment_name" id="attachment_name" />
+			<span class="hint">this is not the file name, it is essentially a title</span>
+		</p>
+		
+		<p>
+			<label for="attachment_description">Description:</label>
+			<textarea name="attachment_description" id="attachment_description" rows="3"></textarea>
+		</p>
+		
+		<p>
+			<label for="attachment_file">File: </label>
+			<input type="file" name="attachment_file" id="attachment_file" />
+			<span class="hint">please only upload archives (zip, tarball, etc.)</span>
+		</p>
+	</fieldset>
+	
+	<fieldset>
+		<input type="hidden" name="doCreate" value="1" />
+	
+		<button type="submit" id="create_button">Create Video</button>
+	</fieldset>
+</form>
+<% } else { %>
+<script type="text/javascript">
+	window.location = "<%= site_info('base') %>video/created/<%= video_id %>";
+</script>
+<% } %>

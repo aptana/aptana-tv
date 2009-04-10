@@ -1,0 +1,24 @@
+<oembed>
+	<type><%= oembed.type %></type>
+	<version><%= oembed.version %></version>
+	<provider_name><%= oembed.provider_name %></provider_name>
+	<provider_url><%= oembed.provider_url %></provider_url>
+	<title><%= oembed.title %></title>
+	<author_name><%= oembed.author_name %></author_name>
+	<author_image_url><%= oembed.author_image_url %></author_image_url>
+	<html><![CDATA[<%= oembed.html %>]]></html>
+	<width><%= oembed.width %></width>
+	<height><%= oembed.height %></height>
+	<thumbnail_url><%= oembed.thumbnail_url %></thumbnail_url>
+	<video_id><%= oembed.video_id %></video_id>
+	<video_name><%= oembed.video_name %></video_name>
+	<related_videos>
+	<% oembed.related_videos.forEach(function(video) { %>
+		<video>
+			<title><%= video.title %></title>
+			<url><%= video.url %></url>
+			<thumbnail_url><%= video.thumbnail_url %></thumbnail_url>
+		</video>
+	<% }) %>
+	</related_videos>
+</oembed>

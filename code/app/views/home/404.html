@@ -1,0 +1,43 @@
+<h1 class="myriad" style="height: 30px;">Page not Found</h1>
+
+<p class="bottom10">
+    Whoops!  Looks like the page you're looking for doesn't exist.  You can either return to the <a href="<%= site_info('base') %>">home page</a>, or use the links below to help you find what you're looking for.
+</p>
+
+<div class="separator"></div>
+
+<!-- browse by tags -->
+<div class="category-box first">
+	<h2>Browse By Tags</h2>
+	
+	<div class="tag-cloud">
+		<% tags.forEach(function (tag) { %>
+			<span class="<%= get_tag_class(tag.count, tagMax) %>"><a href="<%= exploreTagsUrl({ slug: tag.slug }) %>"><%= tag.tag %></a></span>
+		<% }) %>
+	</div>
+	
+</div>
+
+<!-- browse by product -->
+<div class="category-box">
+	<h2>Browse By Product</h2>
+	
+	<form style="margin-top: 10px;" action="<%= site_info('base') %>explore/products" method="get">
+		<p>
+			<label for="product_id" style="width: 60px;">Product: </label>
+			<select name="product_id" id="product_id">
+				<option value="---">Please choose...</option>
+				<% for each(var product in products) { %>
+					<% if(product.name == 'curried') { continue; } %>
+					<option value="<%= product.id %>"><%= product.name %></option>
+				<% } %>
+			</select>
+		</p>
+		
+		<div style="margin-top: 10px; width: 245px; text-align: right;">
+			<button type="submit">Browse Videos &raquo;</button>
+		</div>
+	</form>
+</div>
+
+<div class="clearfix"></div>

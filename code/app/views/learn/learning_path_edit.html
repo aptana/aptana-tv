@@ -1,0 +1,43 @@
+<h1 class="myriad">Edit "<%= path.name %>"</h1>
+
+<p>
+    To edit this learning path, simply drag the videos you would like into its playlist, and then sort the videos in the order you would like them to play.  To remove a video from the playlist, drag it back to the "Available Videos" area.
+</p>
+
+<form action="<%= site_info('base') %>learn/<%= path.slug %>/edit" method="post">
+<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td width="50%" style="padding: 10px; vertical-align: top;" valign="top">
+			<fieldset>
+				<legend>Available Videos</legend>
+				
+				<ul id="available-videos" class="draggable">
+				<% videos_unused.forEach(function(item) { %>
+					<% var video = Video.findById(item.id) %>
+					<li id="video-<%= video.id %>"><%= video.name %>
+				<% }); %>
+				</ul>
+			</fieldset>		
+		</td>
+		<td width="50%" style="padding: 10px; vertical-align: top;" valign="top">
+			<fieldset>
+				<legend>Learning Path Playlist</legend>
+				
+				<ul id="playlist-videos" class="draggable">
+				<% videos_used.forEach(function(item) { %>
+				<% var video = Video.findById(item.id) %>
+					<li id="video-<%= video.id %>"><%= video.name %>
+				<% }); %>
+				</ul>
+			</fieldset>
+		</td>
+	</tr>
+</table>
+
+<input type="hidden" name="playlist" id="playlist" value="" />
+<input type="hidden" name="doSave" value="1" />
+
+<button type="submit">Save Changes</button> &nbsp;
+<button type="button" onclick="window.location='<%= site_info("base") %>learn/<%= path.slug %>';">Return to "<%= path.name %>"</button>
+
+</form>

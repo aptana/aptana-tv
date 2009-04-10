@@ -1,0 +1,32 @@
+<% var count = 0; %>
+<% categories.forEach(function(category) { %>
+	
+	<div class="category-box">
+		<h2><a href="<%= topicUrl({slug: category.slug }) %>"><%= category.name %></a></h2>
+		<% var thumb = get_video_thumb('category', category.id); if (thumb !== false) { %>
+			<div style="float: left; width: 130px;">
+				<%= thumb %>		
+			</div>
+			<div style="float: left; width: 270px;">
+				<p>
+					<%= nl2br(category.description) %>
+				</p>	
+			</div>
+			<div class="clearfix"></div>
+		<% } else { %>
+			<p>
+				<%= nl2br(category.description) %>
+			</p>
+		<% } %>
+		
+		<div class="view-all">
+			<a href="<%= topicUrl({slug: category.slug }) %>" title="View all <%= category.name %> videos">View all videos &raquo;</a>
+		</div>
+	</div>
+
+	<% count ++; %>
+	<% if (count == 2) { %><div class="clearfix"></div><% count = 0; } %>
+
+<% }) %>
+
+<div class="clearfix"></div>

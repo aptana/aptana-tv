@@ -1,0 +1,9 @@
+<h1 class="myriad">Videos For <%= product.name %></h1>
+
+<% if(!videos || videos.length == 0) { %>
+	<p>
+		We couldn't find any videos for that product.  Sorry.
+	</p>
+<% } else { %>
+	<%= render({ partial: 'partials/video_list.html' }, { videos: videos }) %>
+<% } %>

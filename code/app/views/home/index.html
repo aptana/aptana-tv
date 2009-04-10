@@ -1,0 +1,72 @@
+<!-- featured content -->
+<%= render({ partial: 'home/featured_main.html' }) %>
+
+<div class="separator">&nbsp;</div>
+
+<!-- secondary content -->
+<div class="secondary left">
+	<!-- other featured vids -->
+	<%= render({ partial: 'home/featured_other.html' }) %>
+	
+</div>
+<div class="secondary middle">
+	<!-- learning paths -->
+	<h2 class="png-fix">Learning Paths</h2>
+	<h3>New to Aptana? Start Here.</h3>
+	
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td valign="top">
+				<ul>
+					<% learning_paths.forEach(function(path) { %>
+                    <li>
+                        <a href="<%= learnUrl({ slug: path.slug }) %>"><%= path.name %></a>
+                    </li>
+					<% }) %>
+				</ul>
+			</td>
+		</tr>
+	</table>
+	
+	<div class="view-all">
+		<a href="<%= site_info('base') %>learn">all learning paths &raquo;</a>
+	</div>
+</div>
+
+<div class="secondary right">
+	<!-- video topics -->
+	<h2 class="png-fix">Video Topics</h2>
+	<h3>Learn about what interests you</h3>
+	
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<% var count = 0; %>
+		<tr>
+		<% categories.forEach(function(category) { %>
+			<% if (count == 0 || count == 4 ) { %>
+				<td valign="top" width="50%">
+					<ul>
+			<% } %>
+			
+			<li><a href="<%= topicUrl({ slug: category.slug }) %>"><%= category.name %></a></li>
+				
+			<% if (count == 3 || count == 7) { %>
+					</ul>
+				</td>
+			<% } %>
+		
+			<% count++; %>
+		<% }) %>
+		
+		<% if (count < 7) { %>
+				</ul>
+			</td> 
+		<% } %>
+		</tr>
+	</table>
+	
+	<div class="view-all">
+		<a href="<%= site_info('base') %>topics">all video topics &raquo;</a>
+	</div>
+</div>
+
+<div class="clearfix"></div>

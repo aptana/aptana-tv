@@ -1,0 +1,1 @@
+TagRestController = RestController.create('Tag');

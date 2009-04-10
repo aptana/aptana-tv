@@ -1,0 +1,51 @@
+<% videos.forEach(function(video) { %>
+
+	<%
+		var video_url = videoUrl({ slug: video.slug });
+		
+		if(typeof(ref) != 'undefined')
+		{
+			video_url += '?ref=' + ref + '&refId=' + refId;
+		}
+	%>
+
+	<div class="video-list">
+		<div class="left">
+			<div class="video-thumb png-fix">
+				<a href="<%= video_url %>"><img src="<%= site_info('base') %>images_videos_thumbs/thumb_medium_<%= video.image_file %>" /></a>
+			</div>
+		</div>
+		<div class="right">
+			<h2 style="background: none; width: 650px;"><a href="<%= video_url %>"><%= video.name %></a></h2>
+			
+			<p>
+				<%= truncate_words(video.description, 50) %>
+			</p>
+			
+			<div class="meta">
+				<div class="meta-item">
+					<img src="<%= site_info('base') %>images_global/img_icon_tags.png" style="vertical-align: middle;" /> <strong>Tags:</strong> <%= tag_list(video.getTagList()) %>
+				</div>
+				<div class="meta-item">
+					<img src="<%= site_info('base') %>images_global/img_icon_topics.png" style="vertical-align: middle;" /> <strong>Topics:</strong> <%= topic_list(video.getCategoryList()) %>
+				</div>
+				
+				<div class="clearfix"></div>
+			</div>
+			
+			<div class="watch">
+				<a href="<%= video_url %>">watch this video &raquo;</a>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="separator"></div>
+
+<% }) %>
+
+<% if (videos.length == 0) { %>
+<p>
+		We couldn't find any videos for this topic.  Sorry.
+</p>
+<% } %>

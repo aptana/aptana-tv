@@ -1,0 +1,80 @@
+<%= render({ partial: 'partials/header.html' }) %>
+
+<!-- BEGIN MAIN CONTENT -->
+<div id="content-main-wrap">
+	<div id="content-main">
+		
+		<%= content %>
+		
+	</div>
+</div>
+
+<!-- BEGIN BOTTOM CONTENT -->
+<div id="content-bottom-wrap">
+	<div id="content-bottom">
+		
+		<!-- comments list -->
+		<h2 class="comments">What Others are Saying</h2>
+		
+		<% if (comments.length > 0) { %>
+			<%= render({ partial: 'partials/comment.html' }, { comments: comments }) %>
+		<% } else { %>
+			<p>No comments exist yet.  Why not add one now?</p>		
+		<% } %>
+		
+		<a name="comments"></a>
+		<div style="margin: 10px 0 25px 0">&nbsp;</div>
+
+		<!-- comments form -->		
+		<h2 class="sharethoughts">Share Your Thoughts</h2>
+		<p>
+			Leave a comment!  Fill out the form below completely.
+		</p>
+		<form action="<%= commentUrl() %>" method="post" id="form_comment" name="form_comment">
+			<% if (is_logged_in()) { %>
+				<p>
+					<label>Your Name:</label>
+					<%= User.findById(Jaxer.session['user_id']).first_name %>
+				</p>
+			<% } else { %>
+				<p>
+					<label for="name">Your Name:</label>
+					<input name="name" id="name" class="validate['required']" />
+				</p>			
+				<p>
+					<label for="email">Your Email:</label>
+					<input name="email" id="email" class="validate['required','email']" />
+					<span class="hint">Required, but never shared or spammed (we hate spam)</span>
+				</p>
+				<p>
+					<label for="website">Your Website:</label>
+					<input name="website" id="website" class="validate['url']" />
+					<span class="hint">Optional, but we'll link to you (don't forget the http://)</span>
+				</p>
+			<% } %>
+			
+			<p>
+				<label for="comment">Comment:</label>
+				<textarea name="comment" id="comment" rows="5" style="width: 450px;" class="validate['required']"></textarea>
+				<span class="hint">Some HTML is OK.  Your comment may be removed if it appears to be spam or abusive.</span>
+			</p>
+			
+			<p>
+				<span class="hint">
+					<button type="submit">Add My Comment</button>
+				</span>
+			</p>
+			
+			<input type="hidden" name="doCreate" value="1" />
+			<input type="hidden" name="video_id" id="video_id" value="<%= video.id %>" />
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+window.addEvent('domready', function(){
+    new FormCheck('form_comment');
+});
+</script>
+
+<%= render({ partial: 'partials/footer.html' }) %>

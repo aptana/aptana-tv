@@ -1,0 +1,1 @@
+VideTagRestController = RestController.create('VideoTag');

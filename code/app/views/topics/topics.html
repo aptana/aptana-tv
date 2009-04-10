@@ -1,0 +1,23 @@
+<div class="breadcrumbs">
+	<div style="float: left;"><%= topic_breadcrumbs() %></div>
+	<div style="float: right; margin-right: -20px;">
+		<% if(typeof(category) != 'undefined') { %>
+		<img src="<%= site_info('base') %>images_global/img_icon_feed.png" /> <a href="<%= feedUrl({ category_slug: category.slug }) %>">Subscribe to Topic Feed</a>
+		<% } else { %>
+		&nbsp;
+		<% } %>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<% if (typeof(categories) != 'undefined') { %>
+
+	<%= render({ partial: 'topics/topics_list.html' }, { categories: categories }) %>
+
+<% } else { %>	
+	
+	<h1 class="myriad"><%= category.name %></h1>
+	
+	<%= render({ partial: 'partials/video_list.html' }, { videos: videos, ref: 'topic', refId: category.id }) %>
+	
+<% } %>

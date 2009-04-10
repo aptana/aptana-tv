@@ -1,0 +1,13 @@
+<% videos.forEach(function (video) { %>
+		<item>
+			<title><%= htmlentities(video.name) %></title>
+			<link><%= host + videoUrl({ slug: video.slug }) %></link>
+			<description>
+				<![CDATA[
+				<a href="<%= host + videoUrl({ slug: video.slug }) %>"><img src="<%= host + site_info('base') %>images_videos_thumbs/thumb_wide_<%= video.image_file %>" border="0" /></a><br />
+				<%= nl2br(htmlentities(video.description)) %>
+				]]>
+			</description>
+			<pubDate><%= ActiveSupport.dateFormat(video.date_published, 'ddd, dd mmm yyyy HH:MM:ss', true) %> PST</pubDate>
+		</item>
+<% }) %>
